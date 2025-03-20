@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎈 Eid Mubarak 🎉</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: #222;
+            color: white;
+            overflow: hidden;
+        }
+        h2 {
+            font-size: 24px;
+        }
+        .click-text {
+            font-size: 20px;
+            margin-top: 50px;
+        }
+        .eid-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            background: #FFD700;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
+        }
+        .eid-button:hover {
+            background: white;
+            color: black;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(255, 215, 0, 0.5);
+            text-align: center;
+            z-index: 1001;
+            animation: fadeIn 0.5s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+        .balloon-container {
+            position: absolute;
+            bottom: -100px;
+            text-align: center;
+            animation: riseUp 6s linear forwards;
+            z-index: 1002;
+        }
+        .balloon {
+            font-size: 80px;
+            display: block;
+        }
+        .string {
+            width: 3px;
+            height: 70px;
+            background: white;
+            margin: auto;
+        }
+        .popcorn {
+            position: absolute;
+            font-size: 60px;
+            opacity: 1;
+            animation: popEffect 1.5s ease-out forwards;
+        }
+        @keyframes riseUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        @keyframes popEffect {
+            0% { transform: scale(0) translate(0, 0); opacity: 1; }
+            100% { transform: scale(1.5) translate(var(--x), var(--y)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <p class="click-text">Click the button below to celebrate Eid!</p>
+    <button class="eid-button" onclick="showPopup()">Eid Mubarak</button>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup" id="eidPopup">
+        <h2>🎉 عید مبارک 🎈</h2>
+        <p>May this Eid bring happiness, success, and prosperity to you!</p>
+        <p><strong>From: Shahan Ullah</strong></p>
+        <button class="eid-button" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById('eidPopup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+            blastBalloons();
+            blastPopcorn();
+        }
+
+        function closePopup() {
+            document.getElementById('eidPopup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function blastBalloons() {
+            for (let i = 0; i < 12; i++) {
+                let balloonContainer = document.createElement("div");
+                balloonContainer.className = "balloon-container";
+                balloonContainer.style.left = Math.random() * 90 + "vw"; 
+                
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.innerHTML = "🎈";
+
+                let string = document.createElement("div");
+                string.className = "string";
+
+                let nameTag = document.createElement("p");
+                nameTag.innerText = "Shahan Ullah";
+                nameTag.style.color = "yellow";
+                nameTag.style.fontSize = "18px";
+                nameTag.style.marginTop = "-10px";
+
+                balloonContainer.appendChild(balloon);
+                balloonContainer.appendChild(string);
+                balloonContainer.appendChild(nameTag);
+                document.body.appendChild(balloonContainer);
+
+                setTimeout(() => {
+                    balloonContainer.remove();
+                }, 6000);
+            }
+        }
+
+        function blastPopcorn() {
+            let positions = [
+                { top: "10px", left: "10px" },
+                { top: "10px", right: "10px" },
+                { bottom: "10px", left: "10px" },
+                { bottom: "10px", right: "10px" }
+            ];
+
+            positions.forEach(pos => {
+                for (let i = 0; i < 5; i++) {
+                    let popcorn = document.createElement("div");
+                    popcorn.className = "popcorn";
+                    popcorn.innerHTML = "🍿";
+
+                    Object.assign(popcorn.style, pos);
+                    popcorn.style.setProperty("--x", `${Math.random() * 150 - 75}px`);
+                    popcorn.style.setProperty("--y", `${Math.random() * 150 - 75}px`);
+
+                    document.body.appendChild(popcorn);
+
+                    if (i === 0) {
+                        let nameTag = document.createElement("p");
+                        nameTag.innerText = "Shahan Ullah's Eid Celebration! 🎉";
+                        nameTag.style.position = "absolute";
+                        nameTag.style.color = "gold";
+                        nameTag.style.fontSize = "20px";
+                        nameTag.style.top = pos.top || pos.bottom;
+                        nameTag.style.left = pos.left || pos.right;
+                        document.body.appendChild(nameTag);
+
+                        setTimeout(() => {
+                            nameTag.remove();
+                        }, 1500);
+                    }
+
+                    setTimeout(() => {
+                        popcorn.remove();
+                    }, 1500);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
